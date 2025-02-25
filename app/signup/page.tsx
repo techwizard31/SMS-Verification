@@ -1,11 +1,38 @@
 "use client";
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import '../login/signup.css';
+import { useAppContext } from "../Appcontext";
+import { useRouter } from 'next/navigation';
 
 function Signup() {
+   const { user, setUser } = useAppContext();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
+  
+    const handleSubmit = async (event: FormEvent) => {
+      event.preventDefault();
+      try {
+        const response = await fetch("/api/signup", {
+            method: "POST",
+            body: JSON.stringify({email:email,password:password})
+        })
+  
+        if(!response.ok) throw new Error("Failed to signup");
+  
+        const data = await response.json();
+        setUser(data.User)
+        alert("Signup successfully")
+        router.push('/Notes')
+    } catch (error) {
+        console.log(error)
+        alert("Failed to login");
+    }
+    };
+    
   return (
     <div className="flex justify-center items-center w-full h-screen">
-    <div className="card">
+    <div className="card border-2 border-black">
       <input
         value=""
         className="blind-check"
@@ -20,7 +47,7 @@ function Signup() {
         <span className="show">Show</span>
       </label>
 
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="title">Signup</div>
 
         <label className="label_input" htmlFor="email-input">
@@ -32,6 +59,8 @@ function Signup() {
           type="email"
           name="email"
           id="email-input"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
 
         <div className="frg_pss">
@@ -45,8 +74,10 @@ function Signup() {
           type="text"
           name="password"
           id="password-input"
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
-        <button className="submit" type="button">
+        <button className="submit" type="submit" >
           Submit
         </button>
       </form>

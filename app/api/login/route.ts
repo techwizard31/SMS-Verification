@@ -10,7 +10,7 @@ export async function POST(request: Request){
         );
         const User: User = {
             _id: session.userId,
-            Email: session.providerUid
+            email: session.providerUid
         }
     return Response.json(
         { success: true, message: "User signedin successfully", User, session },

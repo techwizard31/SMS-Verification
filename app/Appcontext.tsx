@@ -3,8 +3,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the user object structure
 interface User {
-  id: string;
-  name: string;
+  _id: string;
   email: string;
 }
 

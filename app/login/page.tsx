@@ -1,17 +1,43 @@
 "use client";
-import React from "react";
-import './signup.css';
+import React, { FormEvent, useState } from "react";
+import "./signup.css";
+import { useAppContext } from "../Appcontext";
+import { useRouter } from 'next/navigation';
 
 function Login() {
+  const { user, setUser } = useAppContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/login", {
+          method: "POST",
+          body: JSON.stringify({email:email,password:password})
+      })
+
+      if(!response.ok) throw new Error("Failed to login");
+
+      const data = await response.json();
+      setUser(data.User)
+      alert("Login successfully")
+      router.push('/Notes')
+  } catch (error) {
+      console.log(error)
+      alert("Failed to login");
+  }
+  };
   return (
-    <div className="card">
+    <div className="flex justify-center items-center w-full h-screen">
+    <div className="card border-2 border-black">
       <input
         value=""
         className="blind-check"
         type="checkbox"
         id="blind-input"
         name="blindcheck"
-        // hidden=""
       />
 
       <label htmlFor="blind-input" className="blind_input">
@@ -19,7 +45,7 @@ function Login() {
         <span className="show">Show</span>
       </label>
 
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="title">Login</div>
         <label className="label_input" htmlFor="email-input">
           Email
@@ -30,13 +56,15 @@ function Login() {
           type="email"
           name="email"
           id="email-input"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
 
         <div className="frg_pss">
           <label className="label_input" htmlFor="password-input">
             Password
           </label>
-          <a href="">Forgot password?</a>
+          {/* <a href="">Forgot password?</a> */}
         </div>
         <input
           spellCheck="false"
@@ -44,8 +72,10 @@ function Login() {
           type="text"
           name="password"
           id="password-input"
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
-        <button className="submit" type="button">
+        <button className="submit" type="submit">
           Submit
         </button>
       </form>
@@ -115,9 +145,18 @@ function Login() {
           ></path>
         </svg>
       </label>
-      <div className="text-lg text-gray-500 font-serif mt-2">Don't have an account ? <a href="/signup" className="underline">Signup</a></div>
+      <div className="text-lg text-gray-500 font-serif mt-2">
+        Don't have an account ?{" "}
+        <a href="/signup" className="underline">
+          Signup
+        </a>
+      </div>
+    </div>
     </div>
   );
 }
 
 export default Login;
+function useSession(): { data: any } {
+  throw new Error("Function not implemented.");
+}

@@ -11,11 +11,11 @@ export interface Notes {
    _id?: string,
    user_id: string,
    Heading: string,
-   Note: string
+   Content: string
 }
 
 export interface User {
     _id?: string,
-    Email: string
+    email: string
 }
 
