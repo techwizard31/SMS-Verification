@@ -21,7 +21,6 @@ function Login() {
 
       <form className="form">
         <div className="title">Login</div>
-
         <label className="label_input" htmlFor="email-input">
           Email
         </label>
@@ -50,7 +49,6 @@ function Login() {
           Submit
         </button>
       </form>
-
       <label htmlFor="blind-input" className="avatar">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +115,7 @@ function Login() {
           ></path>
         </svg>
       </label>
+      <div className="text-lg text-gray-500 font-serif mt-2">Don't have an account ? <a href="/signup" className="underline">Signup</a></div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-/* From Uiverse.io by ilkhoeri */ 
 .card {
     --p: 32px;
     --h-form: auto;
@@ -224,6 +223,7 @@
     justify-content: space-evenly;
     flex-direction: column;
     width: 100%;
+    height: auto;
   }
   
   .form .title {

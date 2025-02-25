@@ -4,6 +4,7 @@ import '../login/signup.css';
 
 function Signup() {
   return (
+    <div className="flex justify-center items-center w-full h-screen">
     <div className="card">
       <input
         value=""
@@ -20,7 +21,7 @@ function Signup() {
       </label>
 
       <form className="form">
-        <div className="title">Login</div>
+        <div className="title">Signup</div>
 
         <label className="label_input" htmlFor="email-input">
           Email
@@ -37,7 +38,6 @@ function Signup() {
           <label className="label_input" htmlFor="password-input">
             Password
           </label>
-          <a href="">Forgot password?</a>
         </div>
         <input
           spellCheck="false"
@@ -118,6 +118,7 @@ function Signup() {
         </svg>
       </label>
     </div>
+  </div>
   );
 }
 
